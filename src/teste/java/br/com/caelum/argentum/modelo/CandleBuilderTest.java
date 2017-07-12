@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class CandleBuilderTest {
 	
-	//@Test
+	@Test
 	public void sequenciaSimplesDeNegociacoes() {
 				
 		CandleBuilder builder = new CandleBuilder();
@@ -33,7 +33,7 @@ public class CandleBuilderTest {
 		Assert.assertEquals(145234.20, candle.getVolume(), 0.00001);
 	}
 	
-	//@Test
+	@Test
 	public void semNegociacoesGeraCandleComZeros() {
 		Calendar hoje = Calendar.getInstance();
 		
