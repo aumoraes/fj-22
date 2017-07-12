@@ -1,8 +1,15 @@
 package br.com.caelum.argentum.reader;
 
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 import org.junit.Assert;
@@ -15,7 +22,7 @@ import br.com.caelum.argentum.modelo.Negociacao;
 public class LeitorXMLTest {
 
 	@Test
-	public void carregaXmlComUmaNegociacaoEmListaUnitaria() {
+	public void carregaXmlComUmaNegociacaoEmListaUnitaria() throws FileNotFoundException, IOException {
 		String xmlDeTeste = "<list>" +
 								"<negociacao>" +
 									"<preco>43.5</preco>" +
@@ -27,6 +34,7 @@ public class LeitorXMLTest {
 							"</list>";
 		
 		
+		
 		LeitorXML leitor = new LeitorXML();
 		
 		InputStream xml = new ByteArrayInputStream(xmlDeTeste.getBytes());
@@ -36,6 +44,29 @@ public class LeitorXMLTest {
 		Assert.assertEquals( 1 , negociacoes.size() );
 		Assert.assertEquals( 43.5 , negociacoes.get(0).getPreco(), 0.00001);
 		Assert.assertEquals( 1000 , negociacoes.get(0).getQuantidade(), 0.00001);
+		
+	}
+	
+	@Test
+	public void carregaArquivoXmlComUmaNegociacaoEmListaUnitaria() throws FileNotFoundException, IOException {
+
+		String content = "";
+		try (BufferedReader br = new BufferedReader(new FileReader("negociacao.xml"))) {
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		    	content += line+"\n";
+		    }
+		}
+		
+		LeitorXML leitor = new LeitorXML();
+		
+		InputStream xml = new ByteArrayInputStream(content.getBytes());
+		
+		List<Negociacao> negociacoes = leitor.carrega(xml);
+		
+		Assert.assertEquals( 350 , negociacoes.size() );
+		Assert.assertEquals( 50.0 , negociacoes.get(0).getPreco(), 0.00001);
+		Assert.assertEquals( 1176 , negociacoes.get(0).getQuantidade(), 0.00001);
 		
 	}
 	
