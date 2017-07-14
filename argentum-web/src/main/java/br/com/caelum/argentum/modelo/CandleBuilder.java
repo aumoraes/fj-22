@@ -18,12 +18,12 @@ public class CandleBuilder {
 	private boolean dataSetted = false;
 	
 	
-	public Candlestick geraCandle() {
+	public Candle geraCandle() {
 		if (data == null) {
 			throw new IllegalStateException("Data nao pode ser nula");
 		}
 		
-		return new Candlestick(abertura, fechamento, minimo, maximo,
+		return new Candle(abertura, fechamento, minimo, maximo,
 		volume, data);
 	}
 	

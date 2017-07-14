@@ -20,7 +20,7 @@ public class CandleBuilderTest {
 		builder.comVolume(145234.20);
 		builder.comData(new GregorianCalendar(2012, 8, 12, 0, 0, 0));
 		
-		Candlestick candle = builder.geraCandle();
+		Candle candle = builder.geraCandle();
 		
 		Assert.assertEquals(40.5, candle.getAbertura(), 0.00001);
 		Assert.assertEquals(42.3, candle.getFechamento(), 0.00001);
@@ -37,7 +37,7 @@ public class CandleBuilderTest {
 		
 		builder.comData(hoje);
 		
-		Candlestick candle = builder.geraCandle();
+		Candle candle = builder.geraCandle();
 		
 		Assert.assertEquals(0.0, candle.getAbertura(), 0.00001);
 		Assert.assertEquals(0.0, candle.getFechamento(), 0.00001);
