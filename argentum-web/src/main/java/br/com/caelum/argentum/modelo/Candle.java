@@ -12,6 +12,7 @@ public final class Candle {
 	private final double maximo;
 	private final double volume;
 	private final Calendar data;
+	
 	public Candle(double abertura, double fechamento, double minimo, double maximo, double volume, Calendar data) {
 		if(minimo > maximo){
 			throw new IllegalArgumentException("Valor mínimo não pode ser maior que o valor máximo");

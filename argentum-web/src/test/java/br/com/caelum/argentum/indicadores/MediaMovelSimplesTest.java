@@ -9,7 +9,9 @@ public class MediaMovelSimplesTest {
 
 	@Test
 	public void sequenciaSimplesDeCandles() throws Exception {
+		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4, 3);
+		
 		MediaMovelSimples mms = new MediaMovelSimples();
 	
 		assertEquals(2.0, mms.calcula(2, serie), 0.00001);

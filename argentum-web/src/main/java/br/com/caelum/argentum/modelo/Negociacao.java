@@ -12,9 +12,6 @@ public class Negociacao implements Comparable<Negociacao>{
 	private final int quantidade;
 	private final Calendar data;
 	
-	
-	
-	
 	public Negociacao(double preco, int quantidade, Calendar data) {
 		if (data == null) {
 			throw new IllegalArgumentException("Data nao pode ser nula");

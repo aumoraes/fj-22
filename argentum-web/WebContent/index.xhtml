@@ -9,6 +9,10 @@
 		<title>Argentum Table</title>
 	</h:head>
 	<h:body>
+		
+		<p:chart type="line" model="#{argentumBean.modeloGrafico}" />
+		<br>
+		</br>
 		<h:form id="listaNegociacao">
 			<p:dataTable var="negociacao" value="#{argentumBean.negociacoes}" paginator="true" rows="20" >
 			

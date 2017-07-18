@@ -16,6 +16,8 @@ public class GeradorDeSerie {
 	* tais candles encapsuladas em uma Serie Temporal.
 	**/
 	public static SerieTemporal criaSerie(double... valores) {
+		
+		
 		List<Candle> candles = new ArrayList<Candle>();
 		
 		for (double d : valores) {
