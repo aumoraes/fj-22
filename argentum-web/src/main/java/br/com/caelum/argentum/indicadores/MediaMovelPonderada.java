@@ -2,7 +2,7 @@ package br.com.caelum.argentum.indicadores;
 
 import br.com.caelum.argentum.modelo.SerieTemporal;
 
-public class MediaMovelPonderada {
+public class MediaMovelPonderada implements Indicador{
 	
 	public double calcula(int posicao, SerieTemporal serie) {
 		
@@ -22,4 +22,9 @@ public class MediaMovelPonderada {
 		return media;
 		
 	}
+	
+	public String toString() {
+		return "MMP de Fechamento";
+	}
+	
 }
