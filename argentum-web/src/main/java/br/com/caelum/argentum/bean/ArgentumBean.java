@@ -9,6 +9,8 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.chart.ChartModel;
 
 import br.com.caelum.argentum.grafico.GeradorModeloGrafico;
+import br.com.caelum.argentum.indicadores.IndicadorAbertura;
+import br.com.caelum.argentum.indicadores.IndicadorFechamento;
 import br.com.caelum.argentum.indicadores.MediaMovelSimples;
 import br.com.caelum.argentum.modelo.Candle;
 import br.com.caelum.argentum.modelo.CandleFactory;
@@ -25,11 +27,20 @@ public class ArgentumBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Negociacao> negociacoes;
-	private ChartModel modeloGrafico;
+	private ChartModel modeloGraficoFechamento;
+	private String nomeMedia;
+	private String indicadorBase;
 	
 	public ArgentumBean() {
 	
 		this.negociacoes = new ClienteWebService().getNegociacoes();
+		
+		geraGrafico();
+	 
+	}
+	public void geraGrafico() {
+		
+		System.out.println("PLOTANDO: "+ nomeMedia +" de "+ indicadorBase);
 		
 		List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
 		
@@ -37,18 +48,36 @@ public class ArgentumBean implements Serializable{
 		
 		GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2, serie.getUltimaPosicao());
 		
-		geradorGrafico.plotaIndicador(new MediaMovelSimples());
+		int intervaloDeCalculo = 3;
 		
-		this.modeloGrafico = geradorGrafico.getModeloGrafico();
-	 
+		geradorGrafico.plotaIndicador(new MediaMovelSimples( intervaloDeCalculo, new IndicadorFechamento() ));
+		
+		this.modeloGraficoFechamento = geradorGrafico.getModeloGrafico();
 	}
+	public String getNomeMedia(){
+		return nomeMedia;
+	}
+	
+	public void setNomeMedia(String nomeMedia){
+		this.nomeMedia = nomeMedia;
+	}
+	
+	public String getIndicadorBase(){
+		return indicadorBase;
+	}
+	
+	public void setIndicadorBase(String indicadorBase){
+		this.indicadorBase = indicadorBase;
+	}
+	
+	
 	
 	public List<Negociacao> getNegociacoes(){
 		return negociacoes;
 	}
 	
-	public ChartModel getModeloGrafico(){
-		return this.modeloGrafico;
+	public ChartModel getModeloGraficoFechamento(){
+		return this.modeloGraficoFechamento;
 	}
 	
 	

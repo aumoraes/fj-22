@@ -7,7 +7,6 @@ import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
 import br.com.caelum.argentum.indicadores.Indicador;
-import br.com.caelum.argentum.indicadores.MediaMovelSimples;
 import br.com.caelum.argentum.modelo.SerieTemporal;
 
 public class GeradorModeloGrafico {
@@ -26,16 +25,16 @@ public class GeradorModeloGrafico {
 		this.modeloGrafico = new LineChartModel();
 	}
 	public void plotaIndicador(Indicador indicador) {
+		
 		LineChartSeries chartSerie = new LineChartSeries(indicador.toString());
 		for (int i = comeco; i <= fim; i++) {
 			double valor = indicador.calcula(i, serie);
 			chartSerie.set(i, valor);
 		}
 		this.modeloGrafico.addSeries(chartSerie);
-		
 		this.modeloGrafico.setLegendPosition("w");
-		
 		this.modeloGrafico.setTitle("Indicadores");
+		
 	}
 	public ChartModel getModeloGrafico() {
 		return this.modeloGrafico;

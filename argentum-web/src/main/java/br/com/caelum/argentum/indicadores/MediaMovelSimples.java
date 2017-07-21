@@ -4,24 +4,33 @@ import br.com.caelum.argentum.modelo.SerieTemporal;
 
 public class MediaMovelSimples implements Indicador {
 	
-	/* (non-Javadoc)
-	 * @see br.com.caelum.argentum.indicadores.Indicador#calcula(int, br.com.caelum.argentum.modelo.SerieTemporal)
-	 */
+	
+	private int intervalo;
+	private final Indicador outroIndicador;
+
+	public MediaMovelSimples(int intervalor, Indicador outroIndicador) {
+		this.intervalo = intervalor;
+		this.outroIndicador = outroIndicador;
+	}
+	
 	@Override
 	public double calcula(int posicao, SerieTemporal serie) {
 		
-		int intervalo = 3;
-		
-		double media = 0;
-		for (int i = 0; i < intervalo; i++) {
-			media += serie.getCandle( posicao - i).getFechamento();
+		if(serie.size() < intervalo){
+			throw new IllegalArgumentException("Não há candles suficiente para o interfalo escolhido");	
 		}
-		media = media / intervalo;
-		return media;
+		
+		double soma = 0;
+		for (int i = 0; i < intervalo; i++) {
+			soma += outroIndicador.calcula(posicao - i, serie);
+		}
+		
+		soma = soma / intervalo;
+		return soma;
 		
 	}
 	
 	public String toString() {
-		return "MMS de Fechamento";
+		return "MMS de Fechamento " + outroIndicador.toString();
 	}
 }

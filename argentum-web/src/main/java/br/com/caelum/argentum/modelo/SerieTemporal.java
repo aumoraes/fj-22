@@ -19,4 +19,8 @@ public class SerieTemporal {
 	public int getUltimaPosicao() {
 		return this.candles.size() - 1;
 	}
+	
+	public int size(){
+		return candles.size();
+	}
 }
