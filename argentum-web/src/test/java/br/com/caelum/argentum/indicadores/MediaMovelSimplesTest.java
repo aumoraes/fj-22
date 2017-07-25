@@ -12,8 +12,7 @@ public class MediaMovelSimplesTest {
 	public void sequenciaSimplesDeCandles(){
 		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4, 3);
-		int intervalo = 3;
-		Indicador mms = new MediaMovelSimples( intervalo, new IndicadorFechamento());
+		Indicador mms = new MediaMovelSimples(new IndicadorFechamento());
 	
 		assertEquals(2.0, mms.calcula(2, serie), 0.00001);
 		assertEquals(3.0, mms.calcula(3, serie), 0.00001);
@@ -30,8 +29,7 @@ public class MediaMovelSimplesTest {
 	public void sequenciaSimplesDeCandlesComIndicadorDeAbertura(){
 		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4, 3);
-		int intervalo = 3;
-		Indicador mms = new MediaMovelSimples( intervalo, new IndicadorAbertura());
+		Indicador mms = new MediaMovelSimples( new IndicadorAbertura());
 	
 		assertEquals(2.0, mms.calcula(2, serie), 0.00001);
 		assertEquals(3.0, mms.calcula(3, serie), 0.00001);
@@ -47,8 +45,7 @@ public class MediaMovelSimplesTest {
 	public void sequenciaSimplesDeCandlesComIndicadorDeMaximo(){
 		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 3, 4, 5, 4, 3);
-		int intervalo = 3;
-		Indicador mms = new MediaMovelSimples( intervalo, new IndicadorMaximo());
+		Indicador mms = new MediaMovelSimples( new IndicadorMaximo());
 	
 		assertEquals(2.0, mms.calcula(2, serie), 0.00001);
 		assertEquals(3.0, mms.calcula(3, serie), 0.00001);
@@ -64,7 +61,7 @@ public class MediaMovelSimplesTest {
 	public void sequenciaDeCandlesOndeOIntervaloEhMaiorQueONumeroDeCandles() {
 		SerieTemporal serie = GeradorDeSerie.criaSerie(7);
 		
-		Indicador mms = new MediaMovelSimples(2, new IndicadorFechamento());
+		Indicador mms = new MediaMovelSimples(new IndicadorFechamento());
 		
 		assertEquals(2.0, mms.calcula(2, serie), 0.00001);
 	}
@@ -74,10 +71,9 @@ public class MediaMovelSimplesTest {
 		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(3, 2, 1);
 		
-		int intervalo = 3;
 		int posicao = serie.getUltimaPosicao() + 1;
 		
-		Indicador mms = new MediaMovelSimples( intervalo, new IndicadorFechamento());
+		Indicador mms = new MediaMovelSimples( new IndicadorFechamento());
 		
 		assertEquals(14.0/6, mms.calcula(posicao, serie), 0.00001);
 	}

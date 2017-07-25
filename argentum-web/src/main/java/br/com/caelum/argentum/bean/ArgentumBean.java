@@ -9,9 +9,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.chart.ChartModel;
 
 import br.com.caelum.argentum.grafico.GeradorModeloGrafico;
-import br.com.caelum.argentum.indicadores.IndicadorAbertura;
-import br.com.caelum.argentum.indicadores.IndicadorFechamento;
-import br.com.caelum.argentum.indicadores.MediaMovelSimples;
+import br.com.caelum.argentum.indicadores.IndicadorFactory;
 import br.com.caelum.argentum.modelo.Candle;
 import br.com.caelum.argentum.modelo.CandleFactory;
 import br.com.caelum.argentum.modelo.Negociacao;
@@ -27,33 +25,37 @@ public class ArgentumBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Negociacao> negociacoes;
-	private ChartModel modeloGraficoFechamento;
+	private ChartModel modeloGrafico;
 	private String nomeMedia;
-	private String indicadorBase;
-	
+	private String nomeIndicadorBase;
 	public ArgentumBean() {
-	
+
 		this.negociacoes = new ClienteWebService().getNegociacoes();
+		this.nomeMedia = "MediaMovelSimples";
+		this.nomeIndicadorBase = "IndicadorFechamento";
 		
 		geraGrafico();
+		
+		
 	 
 	}
-	public void geraGrafico() {
+	
+	public void geraGrafico(){
+		GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico();
+
 		
-		System.out.println("PLOTANDO: "+ nomeMedia +" de "+ indicadorBase);
+		geradorGrafico.setGrafico( this.negociacoes );
 		
-		List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
+		IndicadorFactory indicadorFactory = new IndicadorFactory(this.nomeMedia, this.nomeIndicadorBase);
 		
-		SerieTemporal serie = new SerieTemporal(candles);
+		geradorGrafico.plotaIndicador(indicadorFactory.defineIndicador());
 		
-		GeradorModeloGrafico geradorGrafico = new GeradorModeloGrafico(serie, 2, serie.getUltimaPosicao());
-		
-		int intervaloDeCalculo = 3;
-		
-		geradorGrafico.plotaIndicador(new MediaMovelSimples( intervaloDeCalculo, new IndicadorFechamento() ));
-		
-		this.modeloGraficoFechamento = geradorGrafico.getModeloGrafico();
+		this.modeloGrafico = geradorGrafico.getModeloGrafico();
 	}
+	
+	
+	
+
 	public String getNomeMedia(){
 		return nomeMedia;
 	}
@@ -63,11 +65,11 @@ public class ArgentumBean implements Serializable{
 	}
 	
 	public String getIndicadorBase(){
-		return indicadorBase;
+		return nomeIndicadorBase;
 	}
 	
-	public void setIndicadorBase(String indicadorBase){
-		this.indicadorBase = indicadorBase;
+	public void setIndicadorBase(String nomeIndicadorBase){
+		this.nomeIndicadorBase = nomeIndicadorBase;
 	}
 	
 	
@@ -77,7 +79,7 @@ public class ArgentumBean implements Serializable{
 	}
 	
 	public ChartModel getModeloGraficoFechamento(){
-		return this.modeloGraficoFechamento;
+		return this.modeloGrafico;
 	}
 	
 	

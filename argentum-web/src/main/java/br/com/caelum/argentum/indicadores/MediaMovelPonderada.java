@@ -4,11 +4,10 @@ import br.com.caelum.argentum.modelo.SerieTemporal;
 
 public class MediaMovelPonderada implements Indicador {
 
-	public int intervalo;
+	public int intervalo = 3;
 	private Indicador outroIndicador;
 
-	public MediaMovelPonderada(int intervalo, Indicador outroIndicador) {
-		this.intervalo = intervalo;
+	public MediaMovelPonderada(Indicador outroIndicador) {
 		this.outroIndicador = outroIndicador;
 	}
 

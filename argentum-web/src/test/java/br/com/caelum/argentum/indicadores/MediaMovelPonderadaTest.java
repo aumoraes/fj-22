@@ -12,10 +12,8 @@ public class MediaMovelPonderadaTest {
 		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 5, 6);
 		
-		int intervalo = 3;
 		
-		
-		Indicador mmp = new MediaMovelPonderada(intervalo, new IndicadorFechamento());
+		Indicador mmp = new MediaMovelPonderada(new IndicadorFechamento());
 		
 		//ex: calcula(2): 1*1 + 2*2 + 3*3 = 14. Divide por 6, da 14/6
 		assertEquals(14.0/6, mmp.calcula(2, serie), 0.00001);
@@ -29,9 +27,7 @@ public class MediaMovelPonderadaTest {
 	public void sequenciaDeCandlesOndeOIntervaloEhMaiorQueONumeroDeCandles() {
 		SerieTemporal serie = GeradorDeSerie.criaSerie(2);
 		
-		int intervalo = 2;
-		
-		Indicador mmp = new MediaMovelPonderada(intervalo, new IndicadorFechamento());
+		Indicador mmp = new MediaMovelPonderada(new IndicadorFechamento());
 		assertEquals(14.0/6, mmp.calcula(1, serie), 0.00001);
 	}
 	
@@ -40,10 +36,9 @@ public class MediaMovelPonderadaTest {
 		
 		SerieTemporal serie = GeradorDeSerie.criaSerie(3, 2, 1);
 		
-		int intervalo = 3;
 		int posicao = serie.getUltimaPosicao() + 1;
 		
-		Indicador mmp = new MediaMovelPonderada(intervalo, new IndicadorFechamento());
+		Indicador mmp = new MediaMovelPonderada( new IndicadorFechamento());
 		
 		assertEquals(14.0/6, mmp.calcula(posicao, serie), 0.00001);
 	}

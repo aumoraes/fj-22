@@ -5,11 +5,10 @@ import br.com.caelum.argentum.modelo.SerieTemporal;
 public class MediaMovelSimples implements Indicador {
 	
 	
-	private int intervalo;
+	private int intervalo = 3;
 	private final Indicador outroIndicador;
 
-	public MediaMovelSimples(int intervalor, Indicador outroIndicador) {
-		this.intervalo = intervalor;
+	public MediaMovelSimples(Indicador outroIndicador) {
 		this.outroIndicador = outroIndicador;
 	}
 	

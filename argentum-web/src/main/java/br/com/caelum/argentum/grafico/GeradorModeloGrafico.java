@@ -2,11 +2,17 @@ package br.com.caelum.argentum.grafico;
 
 
 
+import java.util.List;
+
 import org.primefaces.model.chart.ChartModel;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
 import br.com.caelum.argentum.indicadores.Indicador;
+import br.com.caelum.argentum.indicadores.IndicadorFactory;
+import br.com.caelum.argentum.modelo.Candle;
+import br.com.caelum.argentum.modelo.CandleFactory;
+import br.com.caelum.argentum.modelo.Negociacao;
 import br.com.caelum.argentum.modelo.SerieTemporal;
 
 public class GeradorModeloGrafico {
@@ -18,10 +24,10 @@ public class GeradorModeloGrafico {
 	private int comeco;
 	private int fim;
 	private LineChartModel modeloGrafico;
-	public GeradorModeloGrafico(SerieTemporal serie, int comeco, int fim) {
-		this.serie = serie;
-		this.comeco = comeco;
-		this.fim = fim;
+	public GeradorModeloGrafico() {
+//		this.serie = serie;
+//		this.comeco = comeco;
+//		this.fim = fim;
 		this.modeloGrafico = new LineChartModel();
 	}
 	public void plotaIndicador(Indicador indicador) {
@@ -36,6 +42,16 @@ public class GeradorModeloGrafico {
 		this.modeloGrafico.setTitle("Indicadores");
 		
 	}
+	
+	public void setGrafico(List<Negociacao> negociacoes) {
+		
+		List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
+		
+		serie = new SerieTemporal(candles);
+		comeco = 2;
+		fim = serie.getUltimaPosicao();
+	}
+	
 	public ChartModel getModeloGrafico() {
 		return this.modeloGrafico;
 	}
