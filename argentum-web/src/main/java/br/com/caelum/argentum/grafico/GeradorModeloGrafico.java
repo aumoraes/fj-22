@@ -24,12 +24,22 @@ public class GeradorModeloGrafico {
 	private int comeco;
 	private int fim;
 	private LineChartModel modeloGrafico;
+	private String titulo;
+	
 	public GeradorModeloGrafico() {
-//		this.serie = serie;
-//		this.comeco = comeco;
-//		this.fim = fim;
 		this.modeloGrafico = new LineChartModel();
 	}
+	
+	public void setGrafico(List<Negociacao> negociacoes, String titulo) {
+		
+		List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
+		
+		serie = new SerieTemporal(candles);
+		comeco = 2;
+		fim = serie.getUltimaPosicao();
+		this.titulo = titulo;
+	}
+
 	public void plotaIndicador(Indicador indicador) {
 		
 		LineChartSeries chartSerie = new LineChartSeries(indicador.toString());
@@ -39,18 +49,11 @@ public class GeradorModeloGrafico {
 		}
 		this.modeloGrafico.addSeries(chartSerie);
 		this.modeloGrafico.setLegendPosition("w");
-		this.modeloGrafico.setTitle("Indicadores");
+		this.modeloGrafico.setTitle(titulo);
 		
 	}
 	
-	public void setGrafico(List<Negociacao> negociacoes) {
-		
-		List<Candle> candles = new CandleFactory().constroiCandles(negociacoes);
-		
-		serie = new SerieTemporal(candles);
-		comeco = 2;
-		fim = serie.getUltimaPosicao();
-	}
+	
 	
 	public ChartModel getModeloGrafico() {
 		return this.modeloGrafico;

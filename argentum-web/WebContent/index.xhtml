@@ -9,8 +9,14 @@
 	<title>Argentum Table</title>
 </h:head>
 <h:body>
-	<h:form>
-		<h:panelGrid columns="5">
+	<h:form id="dadosGrafico">
+		<p:messages autoUpdate="true" />
+		<h:panelGrid columns="6">
+		
+			<h:outputLabel value="Título Gráfico:" />
+			<p:inputText id="titulo" value="#{argentumBean.titulo}" required="true"/>
+
+
 			<h:outputLabel value="Media Móvel:" />
 			<p:selectOneButton value="#{argentumBean.nomeMedia}">
 				<f:selectItem itemLabel="Simples" itemValue="MediaMovelSimples" />
